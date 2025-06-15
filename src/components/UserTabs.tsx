@@ -1,16 +1,29 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import ExecutiveView from './ExecutiveView';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const UserTabs: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('branch');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const getActiveTab = () => {
+    if (location.pathname === '/branch') return 'branch';
+    if (location.pathname === '/executive') return 'executive';
+    return 'admin';
+  };
+
+  const activeTab = getActiveTab();
 
   const tabs = [
-    { id: 'admin', label: 'Admin' },
-    { id: 'branch', label: 'Branch' },
-    { id: 'executive', label: 'Executive' },
+    { id: 'admin', label: 'Admin', path: '/' },
+    { id: 'branch', label: 'Branch', path: '/branch' },
+    { id: 'executive', label: 'Executive', path: '/executive' },
   ];
+
+  const handleTabClick = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <div className="w-full">
@@ -20,7 +33,7 @@ const UserTabs: React.FC = () => {
             <Button
               key={tab.id}
               variant="ghost"
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => handleTabClick(tab.path)}
               className={`px-6 py-2 rounded-md transition-colors ${
                 activeTab === tab.id
                   ? 'bg-blue-600 text-white hover:bg-blue-700'
@@ -32,8 +45,6 @@ const UserTabs: React.FC = () => {
           ))}
         </div>
       </div>
-      
-      {activeTab === 'executive' && <ExecutiveView />}
     </div>
   );
 };

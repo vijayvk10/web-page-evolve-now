@@ -4,10 +4,9 @@ import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
 import RequiredFiles from '@/components/RequiredFiles';
 import ReportTabs from '@/components/ReportTabs';
-import UserTabs from '@/components/UserTabs';
 import { FileUploadProvider } from '@/contexts/FileUploadContext';
 
-const Index = () => {
+const BranchPage = () => {
   return (
     <FileUploadProvider>
       <SidebarProvider>
@@ -20,11 +19,8 @@ const Index = () => {
               <div className="text-center mb-8">
                 <div className="flex items-center justify-between mb-4">
                   <SidebarTrigger />
-                  <div className="flex-1">
-                    <UserTabs />
-                  </div>
                 </div>
-                <h1 className="text-3xl font-bold text-blue-600 mb-2">ACCLLP Integrated Dashboard</h1>
+                <h1 className="text-3xl font-bold text-blue-600 mb-2">Branch Dashboard</h1>
                 
                 {/* Main Content */}
                 <div className="space-y-6">
@@ -40,4 +36,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default BranchPage;
