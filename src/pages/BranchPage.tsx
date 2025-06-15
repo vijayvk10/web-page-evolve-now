@@ -4,6 +4,7 @@ import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
 import RequiredFiles from '@/components/RequiredFiles';
 import ReportTabs from '@/components/ReportTabs';
+import UserTabs from '@/components/UserTabs';
 import { FileUploadProvider } from '@/contexts/FileUploadContext';
 
 const BranchPage = () => {
@@ -19,6 +20,9 @@ const BranchPage = () => {
               <div className="text-center mb-8">
                 <div className="flex items-center justify-between mb-4">
                   <SidebarTrigger />
+                  <div className="flex-1">
+                    <UserTabs />
+                  </div>
                 </div>
                 <h1 className="text-3xl font-bold text-blue-600 mb-2">Branch Dashboard</h1>
                 
