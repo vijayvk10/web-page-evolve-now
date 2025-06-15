@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useFileUpload } from '@/contexts/FileUploadContext';
@@ -158,12 +159,22 @@ const ExecutiveView: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-blue-600 mb-4">
-            {reportTabs.find(tab => tab.id === activeTab)?.label} Report
-          </h2>
-          <div className="bg-blue-600 text-white p-4 rounded">
-            Please upload the required files to generate this report
+        <div className="space-y-6">
+          <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-blue-600 mb-4">
+              {reportTabs.find(tab => tab.id === activeTab)?.label} Report
+            </h2>
+            <div className="bg-blue-600 text-white p-4 rounded">
+              Please upload the required files to generate this report
+            </div>
+          </div>
+
+          {/* Summary Report Generator for other tabs */}
+          <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-blue-600 mb-4">Summary Report Generator</h2>
+            <div className="bg-blue-600 text-white p-4 rounded-lg">
+              <p className="text-center">Generate at least one report from any tab to enable the consolidated report option</p>
+            </div>
           </div>
         </div>
       )}
