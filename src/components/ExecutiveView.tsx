@@ -1,11 +1,13 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useFileUpload } from '@/contexts/FileUploadContext';
 import { X, Check } from 'lucide-react';
 
 const ExecutiveView: React.FC = () => {
   const { uploadedFiles } = useFileUpload();
+  const [activeTab, setActiveTab] = useState('number-of-billed-customer');
+  const [selectedAnalysis, setSelectedAnalysis] = useState('');
 
   const files = [
     { name: 'Current Year Sales File', key: 'currentYearSales' },
@@ -16,10 +18,10 @@ const ExecutiveView: React.FC = () => {
   ];
 
   const reportTabs = [
-    'Budget vs Billed',
-    'Od Target vs Collection',
-    'Product Growth',
-    'Number of Billed customer & OD Target'
+    { id: 'budget-vs-billed', label: 'Budget vs Billed' },
+    { id: 'od-target-vs-collection', label: 'Od Target vs Collection' },
+    { id: 'product-growth', label: 'Product Growth' },
+    { id: 'number-of-billed-customer', label: 'Number of Billed customer & OD Target' }
   ];
 
   return (
@@ -58,32 +60,81 @@ const ExecutiveView: React.FC = () => {
 
       {/* Report Tabs */}
       <div className="flex flex-wrap gap-2 mb-6">
-        {reportTabs.map((tab, index) => (
+        {reportTabs.map((tab) => (
           <Button
-            key={index}
-            variant={index === 0 ? "default" : "outline"}
-            className={index === 0 ? "bg-blue-600 hover:bg-blue-700" : ""}
+            key={tab.id}
+            variant={activeTab === tab.id ? "default" : "outline"}
+            onClick={() => setActiveTab(tab.id)}
+            className={activeTab === tab.id ? "bg-blue-600 hover:bg-blue-700" : ""}
           >
-            {tab}
+            {tab.label}
           </Button>
         ))}
       </div>
 
-      {/* Budget vs Billed Report Section */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm mb-6">
-        <h2 className="text-xl font-semibold text-blue-600 mb-4">Budget vs Billed Report</h2>
-        <div className="bg-blue-600 text-white p-4 rounded">
-          Please upload both Sales and Budget files to use this tab
-        </div>
-      </div>
+      {/* Active Tab Content */}
+      {activeTab === 'number-of-billed-customer' ? (
+        <div className="space-y-6">
+          {/* Customer & OD Analysis Section */}
+          <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-blue-600 mb-4">Customer & OD Analysis</h2>
+            
+            <div className="space-y-4">
+              <p className="text-sm text-gray-600 mb-4">Choose OD file for OD Target calculation:</p>
+              
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <input 
+                    type="radio" 
+                    id="previous-month" 
+                    name="od-analysis" 
+                    value="previous-month"
+                    onChange={(e) => setSelectedAnalysis(e.target.value)}
+                    className="text-blue-600"
+                  />
+                  <label htmlFor="previous-month" className="text-sm text-gray-700">OS-Previous Month</label>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <input 
+                    type="radio" 
+                    id="current-month" 
+                    name="od-analysis" 
+                    value="current-month"
+                    onChange={(e) => setSelectedAnalysis(e.target.value)}
+                    className="text-blue-600"
+                  />
+                  <label htmlFor="current-month" className="text-sm text-gray-700">OS-Current Month</label>
+                </div>
+              </div>
+              
+              {!selectedAnalysis && (
+                <div className="bg-blue-600 text-white p-4 rounded-lg flex items-center space-x-2">
+                  <span className="text-white">⚠</span>
+                  <span>No OD file selected</span>
+                </div>
+              )}
+            </div>
+          </div>
 
-      {/* Summary Report Generator */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-        <h2 className="text-xl font-semibold text-blue-600 mb-4">Summary Report Generator</h2>
-        <div className="bg-blue-600 text-white p-4 rounded">
-          No reports generated yet
+          {/* Summary Report Generator */}
+          <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-blue-600 mb-4">Summary Report Generator</h2>
+            <div className="bg-blue-600 text-white p-4 rounded-lg">
+              <p className="text-center">Generate at least one report from any tab to enable the consolidated report option</p>
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+          <h2 className="text-xl font-semibold text-blue-600 mb-4">
+            {reportTabs.find(tab => tab.id === activeTab)?.label} Report
+          </h2>
+          <div className="bg-blue-600 text-white p-4 rounded">
+            Please upload the required files to generate this report
+          </div>
+        </div>
+      )}
     </div>
   );
 };
