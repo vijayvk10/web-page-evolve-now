@@ -8,20 +8,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useFileUpload } from '@/contexts/FileUploadContext';
 
 interface FileUploadProps {
   title: string;
   fileType: string;
   maxSize?: string;
+  uploadKey: string;
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({ 
   title, 
   fileType, 
-  maxSize = "10MB" 
+  maxSize = "10MB",
+  uploadKey
 }) => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const { setFileUploaded } = useFileUpload();
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -38,6 +42,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
     const files = Array.from(e.dataTransfer.files);
     if (files.length > 0) {
       setUploadedFile(files[0]);
+      setFileUploaded(uploadKey, true);
     }
   };
 
@@ -45,11 +50,13 @@ const FileUpload: React.FC<FileUploadProps> = ({
     const files = e.target.files;
     if (files && files.length > 0) {
       setUploadedFile(files[0]);
+      setFileUploaded(uploadKey, true);
     }
   };
 
   const removeFile = () => {
     setUploadedFile(null);
+    setFileUploaded(uploadKey, false);
   };
 
   const exampleFiles = [

@@ -33,36 +33,42 @@ export function AppSidebar() {
                 title="Upload Current Year Sales Excel File"
                 fileType="Excel"
                 maxSize="10MB"
+                uploadKey="currentYearSales"
               />
               
               <FileUpload
                 title="Upload Last Year Sales Excel File"
                 fileType="Excel"
                 maxSize="10MB"
+                uploadKey="lastYearSales"
               />
               
               <FileUpload
                 title="Upload Budget Excel File"
                 fileType="Excel"
                 maxSize="10MB"
+                uploadKey="budget"
               />
               
               <FileUpload
                 title="Upload OS-Previous Month Excel File"
                 fileType="Excel"
                 maxSize="10MB"
+                uploadKey="osPrevious"
               />
               
               <FileUpload
                 title="Upload OS-Current Month Excel File"
                 fileType="Excel"
                 maxSize="10MB"
+                uploadKey="osCurrent"
               />
               
               <FileUpload
                 title="Upload Logo"
                 fileType="Image"
                 maxSize="5MB"
+                uploadKey="logo"
               />
             </div>
           </SidebarGroupContent>
