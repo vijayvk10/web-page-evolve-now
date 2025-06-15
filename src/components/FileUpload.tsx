@@ -1,7 +1,13 @@
 
 import React, { useState } from 'react';
-import { Upload, File, X } from 'lucide-react';
+import { Upload, File, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface FileUploadProps {
   title: string;
@@ -45,6 +51,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
   const removeFile = () => {
     setUploadedFile(null);
   };
+
+  const exampleFiles = [
+    { name: "Sales_Report_Q1.xlsx", url: "#" },
+    { name: "Sales_Report_Q2.xlsx", url: "#" },
+    { name: "Sales_Report_Q3.xlsx", url: "#" }
+  ];
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-3 shadow-sm">
@@ -109,9 +121,24 @@ const FileUpload: React.FC<FileUploadProps> = ({
             Browse
           </Button>
         </div>
-        <Button variant="outline" size="sm" className="flex-1 text-xs">
-          View
-        </Button>
+        
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="sm" className="flex-1 text-xs">
+              View
+              <ChevronDown className="h-3 w-3 ml-1" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56 bg-white">
+            {exampleFiles.map((file, index) => (
+              <DropdownMenuItem key={index} asChild>
+                <a href={file.url} className="cursor-pointer text-xs">
+                  {file.name}
+                </a>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );
