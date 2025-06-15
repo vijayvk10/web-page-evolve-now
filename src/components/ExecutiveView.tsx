@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useFileUpload } from '@/contexts/FileUploadContext';
@@ -8,6 +7,7 @@ const ExecutiveView: React.FC = () => {
   const { uploadedFiles } = useFileUpload();
   const [activeTab, setActiveTab] = useState('number-of-billed-customer');
   const [selectedAnalysis, setSelectedAnalysis] = useState('');
+  const [activeSubTab, setActiveSubTab] = useState('billed-target');
 
   const files = [
     { name: 'Current Year Sales File', key: 'currentYearSales' },
@@ -22,6 +22,11 @@ const ExecutiveView: React.FC = () => {
     { id: 'od-target-vs-collection', label: 'Od Target vs Collection' },
     { id: 'product-growth', label: 'Product Growth' },
     { id: 'number-of-billed-customer', label: 'Number of Billed customer & OD Target' }
+  ];
+
+  const subTabs = [
+    { id: 'billed-target', label: 'Billed Target' },
+    { id: 'od-target', label: 'OD Target' }
   ];
 
   return (
@@ -75,47 +80,74 @@ const ExecutiveView: React.FC = () => {
       {/* Active Tab Content */}
       {activeTab === 'number-of-billed-customer' ? (
         <div className="space-y-6">
-          {/* Customer & OD Analysis Section */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-blue-600 mb-4">Customer & OD Analysis</h2>
-            
-            <div className="space-y-4">
-              <p className="text-sm text-gray-600 mb-4">Choose OD file for OD Target calculation:</p>
+          {/* Sub Tabs for Billed Target and OD Target */}
+          <div className="flex gap-2 mb-4">
+            {subTabs.map((subTab) => (
+              <Button
+                key={subTab.id}
+                variant={activeSubTab === subTab.id ? "default" : "outline"}
+                onClick={() => setActiveSubTab(subTab.id)}
+                className={activeSubTab === subTab.id ? "bg-blue-600 hover:bg-blue-700" : ""}
+                size="sm"
+              >
+                {subTab.label}
+              </Button>
+            ))}
+          </div>
+
+          {/* Billed Target Content */}
+          {activeSubTab === 'billed-target' && (
+            <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+              <h2 className="text-xl font-semibold text-blue-600 mb-4">Billed Target Analysis</h2>
+              <div className="bg-blue-600 text-white p-4 rounded-lg">
+                <p className="text-center">Billed Target report will be generated here</p>
+              </div>
+            </div>
+          )}
+
+          {/* OD Target Content */}
+          {activeSubTab === 'od-target' && (
+            <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+              <h2 className="text-xl font-semibold text-blue-600 mb-4">OD Target Analysis</h2>
               
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <input 
-                    type="radio" 
-                    id="previous-month" 
-                    name="od-analysis" 
-                    value="previous-month"
-                    onChange={(e) => setSelectedAnalysis(e.target.value)}
-                    className="text-blue-600"
-                  />
-                  <label htmlFor="previous-month" className="text-sm text-gray-700">OS-Previous Month</label>
+              <div className="space-y-4">
+                <p className="text-sm text-gray-600 mb-4">Choose OD file for OD Target calculation:</p>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <input 
+                      type="radio" 
+                      id="previous-month" 
+                      name="od-analysis" 
+                      value="previous-month"
+                      onChange={(e) => setSelectedAnalysis(e.target.value)}
+                      className="text-blue-600"
+                    />
+                    <label htmlFor="previous-month" className="text-sm text-gray-700">OS-Previous Month</label>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2">
+                    <input 
+                      type="radio" 
+                      id="current-month" 
+                      name="od-analysis" 
+                      value="current-month"
+                      onChange={(e) => setSelectedAnalysis(e.target.value)}
+                      className="text-blue-600"
+                    />
+                    <label htmlFor="current-month" className="text-sm text-gray-700">OS-Current Month</label>
+                  </div>
                 </div>
                 
-                <div className="flex items-center space-x-2">
-                  <input 
-                    type="radio" 
-                    id="current-month" 
-                    name="od-analysis" 
-                    value="current-month"
-                    onChange={(e) => setSelectedAnalysis(e.target.value)}
-                    className="text-blue-600"
-                  />
-                  <label htmlFor="current-month" className="text-sm text-gray-700">OS-Current Month</label>
-                </div>
+                {!selectedAnalysis && (
+                  <div className="bg-blue-600 text-white p-4 rounded-lg flex items-center space-x-2">
+                    <span className="text-white">⚠</span>
+                    <span>No OD file selected</span>
+                  </div>
+                )}
               </div>
-              
-              {!selectedAnalysis && (
-                <div className="bg-blue-600 text-white p-4 rounded-lg flex items-center space-x-2">
-                  <span className="text-white">⚠</span>
-                  <span>No OD file selected</span>
-                </div>
-              )}
             </div>
-          </div>
+          )}
 
           {/* Summary Report Generator */}
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
