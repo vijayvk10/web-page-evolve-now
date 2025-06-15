@@ -103,14 +103,14 @@ const FileUpload: React.FC<FileUploadProps> = ({
         )}
       </div>
 
-      <div className="flex space-x-2 mt-3">
-        <div className="flex-1">
+      <div className={`flex space-x-2 mt-3 ${fileType === 'Image' ? 'justify-center' : ''}`}>
+        <div className={fileType === 'Image' ? 'w-full' : 'flex-1'}>
           <input
             type="file"
             className="hidden"
             id={`file-input-${title}`}
             onChange={handleFileSelect}
-            accept={fileType === 'Excel' ? '.xlsx,.xls' : '*'}
+            accept={fileType === 'Excel' ? '.xlsx,.xls' : fileType === 'Image' ? 'image/*' : '*'}
           />
           <Button 
             variant="outline" 
@@ -122,23 +122,25 @@ const FileUpload: React.FC<FileUploadProps> = ({
           </Button>
         </div>
         
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="flex-1 text-xs">
-              View
-              <ChevronDown className="h-3 w-3 ml-1" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 bg-white">
-            {exampleFiles.map((file, index) => (
-              <DropdownMenuItem key={index} asChild>
-                <a href={file.url} className="cursor-pointer text-xs">
-                  {file.name}
-                </a>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {fileType !== 'Image' && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="flex-1 text-xs">
+                View
+                <ChevronDown className="h-3 w-3 ml-1" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-white">
+              {exampleFiles.map((file, index) => (
+                <DropdownMenuItem key={index} asChild>
+                  <a href={file.url} className="cursor-pointer text-xs">
+                    {file.name}
+                  </a>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </div>
   );
