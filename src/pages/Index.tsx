@@ -24,13 +24,16 @@ const Index = () => {
                     <UserTabs />
                   </div>
                 </div>
-                <h1 className="text-3xl font-bold text-blue-600 mb-2">ACCLLP Integrated Dashboard</h1>
-              </div>
-
-              {/* Main Content */}
-              <div className="space-y-6">
-                <RequiredFiles />
-                <ReportTabs />
+                {/* Only show the main dashboard content if not on executive tab */}
+                <div id="main-dashboard-content">
+                  <h1 className="text-3xl font-bold text-blue-600 mb-2">ACCLLP Integrated Dashboard</h1>
+                  
+                  {/* Main Content */}
+                  <div className="space-y-6">
+                    <RequiredFiles />
+                    <ReportTabs />
+                  </div>
+                </div>
               </div>
             </div>
           </main>
