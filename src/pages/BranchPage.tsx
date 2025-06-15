@@ -24,7 +24,7 @@ const BranchPage = () => {
                     <UserTabs />
                   </div>
                 </div>
-                <h1 className="text-3xl font-bold text-blue-600 mb-2">Branch Dashboard</h1>
+                <h1 className="text-3xl font-bold text-blue-600 mb-2">ACCLLP Integrated Dashboard</h1>
                 
                 {/* Main Content */}
                 <div className="space-y-6">
