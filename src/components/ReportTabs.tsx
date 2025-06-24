@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useFileUpload } from '@/contexts/FileUploadContext';
 import BudgetVsBilledConfig from '@/components/BudgetVsBilledConfig';
+import OdTargetVsCollectionConfig from '@/components/OdTargetVsCollectionConfig';
 import {
   Table,
   TableBody,
@@ -47,37 +48,7 @@ const ReportTabs: React.FC = () => {
       );
     }
 
-    return (
-      <div className="space-y-4">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Customer</TableHead>
-              <TableHead>Target</TableHead>
-              <TableHead>Collection</TableHead>
-              <TableHead>Outstanding</TableHead>
-              <TableHead>Status</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>ABC Corp</TableCell>
-              <TableCell>₹1,00,000</TableCell>
-              <TableCell>₹85,000</TableCell>
-              <TableCell>₹15,000</TableCell>
-              <TableCell className="text-yellow-600">Pending</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>XYZ Ltd</TableCell>
-              <TableCell>₹2,50,000</TableCell>
-              <TableCell>₹2,50,000</TableCell>
-              <TableCell>₹0</TableCell>
-              <TableCell className="text-green-600">Collected</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-    );
+    return <OdTargetVsCollectionConfig />;
   };
 
   const renderProductGrowth = () => {
