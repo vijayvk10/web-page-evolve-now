@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useFileUpload } from '@/contexts/FileUploadContext';
 import BudgetVsBilledConfig from '@/components/BudgetVsBilledConfig';
 import OdTargetVsCollectionConfig from '@/components/OdTargetVsCollectionConfig';
+import ProductGrowthConfig from '@/components/ProductGrowthConfig';
 import {
   Table,
   TableBody,
@@ -28,7 +29,7 @@ const ReportTabs: React.FC = () => {
     
     if (!hasRequiredFiles) {
       return (
-        <div className="bg-blue-600 text-white p-4 rounded-lg">
+        <div className="bg-purple-600 text-white p-4 rounded-lg">
           <p className="text-center">Please upload both Sales and Budget files in the sidebar</p>
         </div>
       );
@@ -62,37 +63,7 @@ const ReportTabs: React.FC = () => {
       );
     }
 
-    return (
-      <div className="space-y-4">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Product</TableHead>
-              <TableHead>Last Year</TableHead>
-              <TableHead>Current Year</TableHead>
-              <TableHead>Growth</TableHead>
-              <TableHead>Growth %</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>Product A</TableCell>
-              <TableCell>₹1,20,000</TableCell>
-              <TableCell>₹1,50,000</TableCell>
-              <TableCell className="text-green-600">+₹30,000</TableCell>
-              <TableCell className="text-green-600">25%</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Product B</TableCell>
-              <TableCell>₹80,000</TableCell>
-              <TableCell>₹75,000</TableCell>
-              <TableCell className="text-red-600">-₹5,000</TableCell>
-              <TableCell className="text-red-600">-6.25%</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-    );
+    return <ProductGrowthConfig />;
   };
 
   const renderBilledCustomers = () => {
@@ -149,8 +120,8 @@ const ReportTabs: React.FC = () => {
             onClick={() => setActiveTab(tab.id)}
             className={`${
               activeTab === tab.id
-                ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                : 'hover:bg-blue-50 text-blue-600 border-blue-200'
+                ? 'bg-purple-600 hover:bg-purple-700 text-white'
+                : 'hover:bg-purple-50 text-purple-600 border-purple-200'
             }`}
           >
             {tab.label}
@@ -161,35 +132,35 @@ const ReportTabs: React.FC = () => {
       <div className="space-y-6">
         {activeTab === 'budget-vs-billed' && (
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-blue-600 mb-4">Budget vs Billed Report</h3>
+            <h3 className="text-lg font-semibold text-purple-600 mb-4">Budget vs Billed Report</h3>
             {renderBudgetVsBilled()}
           </div>
         )}
 
         {activeTab === 'od-target-vs-collection' && (
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-blue-600 mb-4">Od Target vs Collection Report</h3>
+            <h3 className="text-lg font-semibold text-purple-600 mb-4">Od Target vs Collection Report</h3>
             {renderOdTargetVsCollection()}
           </div>
         )}
 
         {activeTab === 'product-growth' && (
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-blue-600 mb-4">Product Growth Report</h3>
+            <h3 className="text-lg font-semibold text-purple-600 mb-4">Product Growth Report</h3>
             {renderProductGrowth()}
           </div>
         )}
 
         {activeTab === 'number-of-billed-customer' && (
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-blue-600 mb-4">Number of Billed Customer Report</h3>
+            <h3 className="text-lg font-semibold text-purple-600 mb-4">Number of Billed Customer Report</h3>
             {renderBilledCustomers()}
           </div>
         )}
 
         <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-          <h3 className="text-lg font-semibold text-blue-600 mb-4">Consolidated Report</h3>
-          <div className="bg-blue-600 text-white p-4 rounded-lg">
+          <h3 className="text-lg font-semibold text-purple-600 mb-4">Consolidated Report</h3>
+          <div className="bg-purple-600 text-white p-4 rounded-lg">
             <p className="text-center">Generate at least one report from any tab to enable the consolidated report option</p>
           </div>
         </div>
