@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useFileUpload } from '@/contexts/FileUploadContext';
+import BudgetVsBilledConfig from '@/components/BudgetVsBilledConfig';
 import {
   Table,
   TableBody,
@@ -33,44 +33,7 @@ const ReportTabs: React.FC = () => {
       );
     }
 
-    return (
-      <div className="space-y-4">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Department</TableHead>
-              <TableHead>Budget</TableHead>
-              <TableHead>Billed</TableHead>
-              <TableHead>Variance</TableHead>
-              <TableHead>Percentage</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>Sales Team A</TableCell>
-              <TableCell>₹50,000</TableCell>
-              <TableCell>₹45,000</TableCell>
-              <TableCell>-₹5,000</TableCell>
-              <TableCell className="text-red-600">90%</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Sales Team B</TableCell>
-              <TableCell>₹75,000</TableCell>
-              <TableCell>₹80,000</TableCell>
-              <TableCell className="text-green-600">+₹5,000</TableCell>
-              <TableCell className="text-green-600">107%</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Marketing</TableCell>
-              <TableCell>₹30,000</TableCell>
-              <TableCell>₹28,500</TableCell>
-              <TableCell>-₹1,500</TableCell>
-              <TableCell className="text-red-600">95%</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-    );
+    return <BudgetVsBilledConfig />;
   };
 
   const renderOdTargetVsCollection = () => {
