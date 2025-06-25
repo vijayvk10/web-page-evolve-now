@@ -4,6 +4,7 @@ import { useFileUpload } from '@/contexts/FileUploadContext';
 import BudgetVsBilledConfig from '@/components/BudgetVsBilledConfig';
 import OdTargetVsCollectionConfig from '@/components/OdTargetVsCollectionConfig';
 import ProductGrowthConfig from '@/components/ProductGrowthConfig';
+import BilledCustomerConfig from '@/components/BilledCustomerConfig';
 import {
   Table,
   TableBody,
@@ -77,37 +78,7 @@ const ReportTabs: React.FC = () => {
       );
     }
 
-    return (
-      <div className="space-y-4">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Month</TableHead>
-              <TableHead>New Customers</TableHead>
-              <TableHead>Repeat Customers</TableHead>
-              <TableHead>Total Billed</TableHead>
-              <TableHead>Revenue</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>January</TableCell>
-              <TableCell>15</TableCell>
-              <TableCell>45</TableCell>
-              <TableCell>60</TableCell>
-              <TableCell>₹3,50,000</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>February</TableCell>
-              <TableCell>12</TableCell>
-              <TableCell>48</TableCell>
-              <TableCell>60</TableCell>
-              <TableCell>₹3,75,000</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-    );
+    return <BilledCustomerConfig />;
   };
 
   return (
